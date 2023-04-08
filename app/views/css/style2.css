@@ -1,0 +1,57 @@
+@media (min-width: 992px) {
+
+  #datatablesSimple th:nth-child(6),
+  #datatablesSimple td:nth-child(6) {
+    display: none;
+  }
+  #datatablesSimple th:nth-child(7),
+  #datatablesSimple td:nth-child(7) {
+    display: none;
+  }
+  
+  #datatablesSimple th:nth-child(8),
+  #datatablesSimple td:nth-child(8) {
+    display: none;
+  }
+  
+  #datatablesSimple th:nth-child(9),
+  #datatablesSimple td:nth-child(9) {
+    display: none;
+  }
+  
+  #datatablesSimple th:nth-child(10),
+  #datatablesSimple td:nth-child(10) {
+    display: none;
+  }
+
+  #datatablesSimple th:nth-child(11),
+  #datatablesSimple td:nth-child(11) {
+    display: none;
+  }
+  #datatablesSimple th:nth-child(12),
+  #datatablesSimple td:nth-child(12) {
+    display: none;
+  }
+  
+  #datatablesSimple th:nth-child(13),
+  #datatablesSimple td:nth-child(13) {
+    display: none;
+  }
+
+  #datatablesSimple th:nth-child(14),
+  #datatablesSimple td:nth-child(14) {
+    display: none;
+  }
+  #datatablesSimple th:nth-child(15),
+  #datatablesSimple td:nth-child(15) {
+    display: none;
+  }
+  #datatablesSimple th:nth-child(16),
+  #datatablesSimple td:nth-child(16) {
+    display: none;
+  }
+  #datatablesSimple th:nth-child(17),
+  #datatablesSimple td:nth-child(17) {
+    display: none;
+  }
+} 

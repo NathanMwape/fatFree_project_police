@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Boutons d'information</title>
+    <script>
+      function toggleInfo(buttonId, infoId) {
+        var button = document.getElementById(buttonId);
+        var info = document.getElementById(infoId);
+        if (info.style.display === "none") {
+          info.style.display = "block";
+          button.innerHTML = "Cacher les informations";
+        } else {
+          info.style.display = "none";
+          button.innerHTML = "Afficher les informations";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Boutons d'information</h1>
+    <button id="button1" onclick="toggleInfo('button1', 'info1')">Afficher les informations</button>
+    <div id="info1" style="display: none;">
+      <p>Ceci est la première information.</p>
+    </div>
+    <button id="button2" onclick="toggleInfo('button2', 'info2')">Afficher les informations</button>
+    <div id="info2" style="display: none;">
+      <p>Ceci est la deuxième information.</p>
+    </div>
+  </body>
+</html>
