@@ -78,4 +78,24 @@
             else 
                 echo Template::instance()->render("404.html");
         }
+
+
+
+    public function addRapport(){
+        new Session();
+        $login = $this->f3->get("SESSION.login");
+        $password = $this->f3->get("SESSION.password");
+
+        if(isset($login) && isset($password)){
+            $rapport = new Rapports($this->db);
+
+            $contenues = $_POST['contenues'];
+            $rapport->descriptions = $contenues;
+            $rapport->date_creation = date("Y-m-d H:i:s");
+            $rapport->save();
+        }else{
+            echo Template::instance()->render("404.html");
+        }
     }
+
+}

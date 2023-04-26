@@ -227,60 +227,79 @@ class ControllerPolice extends BaseController {
     }
 
     public function policier_update_dbb() {
-        $policier = new Policier($this->db);
-        $policier->edit($this->f3->get("PARAMS.id"));
-        $this->f3->reroute("/add_police");
+        new Session();
+        $login = $this->f3->get("SESSION.login");
+        $password = $this->f3->get("SESSION.password");
+        # Si l'utilisateur est connecter on lui affiche sont 
+        # page sinon on lui dit de se connecter
+        if(isset($login) && isset($password)){
+            $policier = new Policier($this->db);
+            $policier->edit($this->f3->get("PARAMS.id"));
+            $this->f3->reroute("/add_police");
+        }else{
+            echo Template::instance()->render("404.html");
+        }
     }
 
     public function attribution_dbb()
     {
-        //créer une instance de la classe Police
-        $police = new Policier($this->db);
-        // récupérer l'id_policier à partir des paramètres de la requête
-        $id_policier = $this->f3->get("PARAMS.id_policier");
-        
-        //récupérer les paramètres POST
-        $arme_id = $_POST['id_arme'];
-        $type_munition  = $_POST['type_arme'];
-        $nombre_attrib = $_POST['nombre_attrib'];
-        $date_attrib = $_POST['date_attrib'];
-
-        //récupérer l'objet Arme correspondant à partir de la base de données
-        $arme = new Arme($this->db);
-        $arme->load(array('id_arme=?', $arme_id));
-
-        //récupérer l'objet Munition correspondant à partir de la base de données
-        $munition = new Munition($this->db);
-        $munition->load(array('type_munition=?', $arme_id));
-
-        //vérifier que le nombre de munitions disponibles est suffisant pour l'attribution
-        if ($munition->nombre_munition <= $nombre_attrib || $munition->dry()) {    
-            echo "Il n'y a pas assez de munitions disponibles pour cette arme.";
-        } else {
-
-            //réduire le nombre de munitions disponibles
-            $munition->nombre_munition -= $nombre_attrib;    
-            $munition->save(); // enregistrement dans la base de données
-
-            //enregistrer l'attribution dans la table Attribution
-            $attribution = new Attribution($this->db);
-            $attribution->id_policier = $id_policier;    
-            $attribution->id_arme = $arme_id;
-            $attribution->date_attribution = $date_attrib;      
-            $attribution->nombre_munition = $nombre_attrib;
-            $attribution->type_munition = $type_munition;
-            $attribution->save();
-
-            //mettre à jour les armes et le nombre de munitions du policier
-            $police->load(array('id_policier=?', $id_policier));
-            $police->armes = $type_munition;
-            $police->nb_munition += $nombre_attrib;
-            $police->save();
+        new Session();
+        $login = $this->f3->get("SESSION.login");
+        $password = $this->f3->get("SESSION.password");
+        # Si l'utilisateur est connecter on lui affiche sont 
+        # page sinon on lui dit de se connecter
+        if(isset($login) && isset($password)){
+            //créer une instance de la classe Police
+            $police = new Policier($this->db);
+            // récupérer l'id_policier à partir des paramètres de la requête
+            $id_policier = $this->f3->get("PARAMS.id_policier");
             
-            $this->f3->reroute("/attribution");
+            //récupérer les paramètres POST
+            $arme_id = $_POST['id_arme'];
+            $type_munition  = $_POST['type_arme'];
+            $nombre_attrib = $_POST['nombre_attrib'];
+            $date_attrib = $_POST['date_attrib'];
+
+            //récupérer l'objet Arme correspondant à partir de la base de données
+            $arme = new Arme($this->db);
+            $arme->load(array('id_arme=?', $arme_id));
+
+            //récupérer l'objet Munition correspondant à partir de la base de données
+            $munition = new Munition($this->db);
+            $munition->load(array('type_munition=?', $arme_id));
+
+            //vérifier que le nombre de munitions disponibles est suffisant pour l'attribution
+            if ($munition->nombre_munition <= $nombre_attrib || $munition->dry()) {    
+                echo "Il n'y a pas assez de munitions disponibles pour cette arme.";
+            } else {
+
+                //réduire le nombre de munitions disponibles
+                $munition->nombre_munition -= $nombre_attrib;    
+                $munition->save(); // enregistrement dans la base de données
+
+                //enregistrer l'attribution dans la table Attribution
+                $attribution = new Attribution($this->db);
+                $attribution->id_policier = $id_policier;    
+                $attribution->id_arme = $arme_id;
+                $attribution->date_attribution = $date_attrib;      
+                $attribution->nombre_munition = $nombre_attrib;
+                $attribution->type_munition = $type_munition;
+                $attribution->save();
+
+                //mettre à jour les armes et le nombre de munitions du policier
+                $police->load(array('id_policier=?', $id_policier));
+                $police->armes = $type_munition;
+                $police->nb_munition += $nombre_attrib;
+                $police->save();
+                
+                $this->f3->reroute("/attribution");
+            }
+
+        }else{
+            echo Template::instance()->render("404.html");
         }
         
-        }
+    }
 
     public function rapport_admin() {
         new Session();
@@ -297,6 +316,5 @@ class ControllerPolice extends BaseController {
         else 
             echo Template::instance()->render("404.html");
     }
-
  
 }

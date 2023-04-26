@@ -92,8 +92,20 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">RAPPORT</h1>
                         <div class="card mb-4">
-                        </div>
-                        <div class="card mb-4">
+                            
+                            
+
+
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="#" id="rapport-link">Rapport</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" id="visualisation-link">Visualisation</a>
+                            </li>
+                        </ul>
+                        <div id="rapport-form" style="display: block;">
+                            <!-- Contenu rappport -->
                             <div class="card-body">
                                 <form action="POST" style="width: 90%; margin: 20PX;">
                                     <textarea name="pc-textarea" id="pclu-textarea" cols="30" rows="12"></textarea>
@@ -103,12 +115,34 @@
                                 </form>
                             </div>
                         </div>
+                        <div id="visualisation-content" style="display: none;">
+                            <!-- contenu visualisation -->
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, vel, esse consequuntur, sequi voluptas veniam ea omnis magnam incidunt eos atque nemo aliquid autem fugiat. Dicta reprehenderit iste nihil possimus?
+                        </div>
+
+
+
+
+
+
+
+                        </div>
+                        <!-- <div class="card mb-4">
+                            <div class="card-body">
+                                <form action="POST" style="width: 90%; margin: 20PX;">
+                                    <textarea name="pc-textarea" id="pclu-textarea" cols="30" rows="12"></textarea>
+                                    <div style="margin: 20px;  text-align: center;">
+                                        <input type="button" value="envoyer" class="btn btn-primary">
+                                    </div>
+                                </form>
+                            </div>
+                        </div> -->
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; 2022</div>
+                            <div class="text-muted">Copyright &copy; 2023</div>
                         </div>
                     </div>
                 </footer>
@@ -122,6 +156,27 @@
                 "pageLength": 10 // Définit le nombre d'entrées par page par défaut
             } );
             } );
+        </script>
+        <script>
+            const rapportLink = document.getElementById("rapport-link");
+            const rapportForm = document.getElementById("rapport-form");
+            rapportLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            rapportForm.style.display = "block";
+            visualisationContent.style.display = "none";
+            rapportLink.classList.add("active");
+            visualisationLink.classList.remove("active");
+            });
+
+            const visualisationLink = document.getElementById("visualisation-link");
+            const visualisationContent = document.getElementById("visualisation-content");
+            visualisationLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            rapportForm.style.display = "none";
+            visualisationContent.style.display = "block";
+            visualisationLink.classList.add("active");
+            rapportLink.classList.remove("active");
+            });
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src='js/scripts.js'></script>
@@ -137,8 +192,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-sPfW9HxI/5FhSSTV5K5ue5+7eQzsgLUKj1SkQCBc9dtFM7zi+ucfJ+w/w3SlArB1" crossorigin="anonymous"></script>
 
 
-
-<!-- Affichage de la boite de dialogue de Details -->
 
     </body>
 </html>
