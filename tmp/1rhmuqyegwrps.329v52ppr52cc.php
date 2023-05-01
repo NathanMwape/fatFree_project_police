@@ -14,7 +14,7 @@
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-OMH/HCDnRd1gQ8mKjH0vDkkAow0dxblQ2AHc9WV0BxRs0AzQiYcz3g8GGbyM+HwD" crossorigin="anonymous">
         <script src="package/js/tinymce/tinymce.min.js"></script>
-        <script> tinymce.init({ selector:'#pclu-textarea',invalid_elements: 'script,style',plugins: 'paste', paste_as_text: true});</script>
+        <script> tinymce.init({ selector:'#pclu-textarea', branding: false});</script>
 
 
     </head>
