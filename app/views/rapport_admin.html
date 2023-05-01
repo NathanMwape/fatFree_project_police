@@ -118,7 +118,7 @@
                                                 <th>Contenue</th>
                                                 <th>Nom du fichier</th>
                                                 <th>Date de creation</th>
-                                                <th>Action</th>
+                                                <th>Destinataire</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -129,10 +129,10 @@
                                                         <a href="{{ "../../"  . @rp.filename}}">{{substr(@rp.filename, 10)}}</a>
                                                     </td>
                                                     <td>{{@rp.date_creation}}</td>
-                                                    <td>
-                                                        <button class="btn btn-success">Voir</button>
-                                                    </td>
+                                                    <td>{{@rp.Destinatair}}</td>
                                                 </tr>
+
+                                                
                                             </repeat>
                                         </tbody>
                                     </table>

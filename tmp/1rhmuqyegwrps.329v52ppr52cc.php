@@ -111,7 +111,7 @@
                                         <tbody>
                                             <?php foreach (($rapports?:[]) as $rp): ?>
                                                 <tr>
-                                                    <td><?= (substr($rp['descriptions'], 0,10)) ?></td>
+                                                    <td><?= (substr($rp['descriptions'], 0,10)) ?>...</td>
                                                     <td>
                                                         <a href="<?= ("../../"  . $rp['filename']) ?>"><?= (substr($rp['filename'], 10)) ?></a>
                                                     </td>
