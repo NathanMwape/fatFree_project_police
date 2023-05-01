@@ -14,7 +14,7 @@
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-OMH/HCDnRd1gQ8mKjH0vDkkAow0dxblQ2AHc9WV0BxRs0AzQiYcz3g8GGbyM+HwD" crossorigin="anonymous">
         <script src="package/js/tinymce/tinymce.min.js"></script>
-        <script > tinymce.init({ selector:'#pclu-textarea', branding: false});</script>
+        <script> tinymce.init({ selector:'#pclu-textarea',invalid_elements: 'script,style',plugins: 'paste', paste_as_text: true});</script>
 
 
     </head>
@@ -79,15 +79,49 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">RAPPORT</h1>
                         <div class="card mb-4">
+                            
+
+                        <div>
+                            <button class="btn btn-success" aria-current="page" id="rapport-link">Rapport</button>
+                            <button class="btn btn-primary" href="#" id="visualisation-link">Visualisation</button>
                         </div>
-                        <div class="card mb-4">
+                        <div id="rapport-form" >
                             <div class="card-body">
-                                <form action="POST" style="width: 90%; margin: 20PX;">
-                                    <textarea name="pc-textarea" id="pclu-textarea" cols="30" rows="12"></textarea>
+                                <form action="/rapport/rapportDb" method="POST" style="width: 90%; margin: 20PX;">
+                                    <textarea name="contenues" id="pclu-textarea" cols="30" rows="12"></textarea>
                                     <div style="margin: 20px;  text-align: center;">
-                                        <input type="button" value="envoyer" class="btn btn-primary">
+                                        <input type="submit"  value="envoyer" class="btn btn-primary">
                                     </div>
                                 </form>
+                            </div>
+                        </div>
+                        <div id="visualisation-content" style="display: none;">
+                            <!-- contenu visualisation de contenue du rapport-->
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Contenue</th>
+                                                <th>Date</th>
+                                                <th>Destinataire</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach (($rapports?:[]) as $rp): ?>
+                                                <tr>
+                                                    <td><?= ($rp['descriptions']) ?></td>
+                                                    <td><?= ($rp['date_creation']) ?></td>
+                                                    <td><?= ($rp['Destinatair']) ?></td>
+                                                    <td>
+                                                        <button class="btn btn-success">Voir</button>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -95,7 +129,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; 2022</div>
+                            <div class="text-muted">Copyright &copy; 2023</div>
                         </div>
                     </div>
                 </footer>
@@ -109,6 +143,30 @@
                 "pageLength": 10 // Définit le nombre d'entrées par page par défaut
             } );
             } );
+        </script>
+        <script>
+            // Récupération des éléments HTML
+            const rapportLink = document.getElementById("rapport-link");
+            const visualisationLink = document.getElementById("visualisation-link");
+            const rapportForm = document.getElementById("rapport-form");
+            const visualisationContent = document.getElementById("visualisation-content");
+
+            // Fonction pour cacher le formulaire de rapport et afficher le contenu de visualisation
+            function showVisualisationContent() {
+                visualisationContent.style.display = "block";
+                rapportForm.style.display = "none";
+            }
+
+            // Fonction pour cacher le contenu de visualisation et afficher le formulaire de rapport
+            function showRapportForm() {
+                visualisationContent.style.display = "none";
+                rapportForm.style.display = "block";
+            }
+
+            // Ajout des gestionnaires d'événements de clic pour les boutons
+            rapportLink.addEventListener("click", showRapportForm);
+            visualisationLink.addEventListener("click", showVisualisationContent);
+
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src='js/scripts.js'></script>

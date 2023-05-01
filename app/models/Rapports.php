@@ -9,19 +9,13 @@ class Rapports extends DB\SQL\Mapper {
         $this->load();
         return $this->query;
     }
-    
-    public function add() {
-        $this->reset();
-        $this->copyfrom("POST");
-        $this->save();
-    }
 
     public function getById(int $id) {
-        $this->load(array("id_policier=?", $id));
+        $this->load(array("id_rapport=?", $id));
     }
 
     public function getByIdUser(int $id) {
-        $this->load(array("id_policier=?", $id));
+        $this->load(array("id_rapport=?", $id));
     }
 
     public function edit($params) {
@@ -30,4 +24,10 @@ class Rapports extends DB\SQL\Mapper {
         $this->update();
     }
 
+    public function add($rapport_content,$date_creation, $destinataire) {
+        $this->descriptions= $rapport_content;
+        $this->date_creation = $date_creation;
+        $this->Destinatair = $destinataire;
+        $this->save();
+    }
 }

@@ -29,7 +29,7 @@
                     margin-top: 10px;
                     font-weight: bold;
                     text-transform: uppercase;
-                    ">Mr <?= ($SESSION['login']) ?></p>
+                    "><?= ($SESSION['login']) ?></p>
                     <!-- <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
                     <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button> -->
                 </div>
@@ -219,7 +219,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; 2022</div>
+                            <div class="text-muted">Copyright &copy; 2023</div>
                         </div>
                     </div>
                 </footer>

@@ -311,13 +311,42 @@ class ControllerPolice extends BaseController {
         {
             $policier = new Policier($this->db);
             $this->f3->set("police", $policier->all());
-            $rapport = new Rapports($this->db);
-            $this->f3->set("rapport", $rapport->all());
 
+            $rapports = new Rapports($this->db);
+            $this->f3->set("rapports", $rapports->all());
             echo Template::instance()->render("rapport_admin.html");
         }
         else 
             echo Template::instance()->render("404.html");
+    }
+
+    public function addRapport(){
+        new Session();
+        $login = $this->f3->get("SESSION.login");
+        $password = $this->f3->get("SESSION.password");
+
+        if(isset($login) && isset($password)){
+            $policier = new Policier($this->db);
+            $this->f3->set("police", $policier->all());
+
+            $rapport = new Rapports($this->db);
+            $this->f3->set("rapports", $rapport->all());
+
+            $contenues = $this->f3->get("POST.contenues");
+            if ($contenues == "" || $contenues == null) {
+                echo Template::instance()->render("rapport_admin.html");
+            }else{
+                $contenues = strip_tags($contenues);
+                $date_creation = date("Y-m-d H:i:s");
+                $rapport->descriptions = $contenues;
+                $rapport->date_creation = $date_creation;
+                $rapport->Destinatair= $this->f3->get("SESSION.login");
+                $rapport->save();
+                echo Template::instance()->render("rapport_admin.html");
+            }
+        }else{
+            echo Template::instance()->render("404.html");
+        }
     }
  
 }

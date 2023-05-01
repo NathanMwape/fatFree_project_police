@@ -80,50 +80,50 @@
                         <h1 class="mt-4" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">RAPPORT</h1>
                         <div class="card mb-4">
                             
-                            
 
-
-                        <ul class="nav nav-tabs">
-                            <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="#" id="rapport-link">Rapport</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" id="visualisation-link">Visualisation</a>
-                            </li>
-                        </ul>
-                        <div id="rapport-form" style="display: block;">
-                            <!-- Contenu rappport -->
+                        <div>
+                            <button class="btn btn-success" aria-current="page" id="rapport-link">Rapport</button>
+                            <button class="btn btn-primary" href="#" id="visualisation-link">Visualisation</button>
+                        </div>
+                        <div id="rapport-form" >
                             <div class="card-body">
-                                <form action="POST" style="width: 90%; margin: 20PX;">
-                                    <textarea name="pc-textarea" id="pclu-textarea" cols="30" rows="12"></textarea>
+                                <form action="/rapport/rapportDb" method="POST" style="width: 90%; margin: 20PX;">
+                                    <textarea name="contenues" id="pclu-textarea" cols="30" rows="12"></textarea>
                                     <div style="margin: 20px;  text-align: center;">
-                                        <input type="button" value="envoyer" class="btn btn-primary">
+                                        <input type="submit"  value="envoyer" class="btn btn-primary">
                                     </div>
                                 </form>
                             </div>
                         </div>
                         <div id="visualisation-content" style="display: none;">
-                            <!-- contenu visualisation -->
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, vel, esse consequuntur, sequi voluptas veniam ea omnis magnam incidunt eos atque nemo aliquid autem fugiat. Dicta reprehenderit iste nihil possimus?
-                        </div>
-
-
-
-
-
-
-
-                        </div>
-                        <!-- <div class="card mb-4">
+                            <!-- contenu visualisation de contenue du rapport-->
                             <div class="card-body">
-                                <form action="POST" style="width: 90%; margin: 20PX;">
-                                    <textarea name="pc-textarea" id="pclu-textarea" cols="30" rows="12"></textarea>
-                                    <div style="margin: 20px;  text-align: center;">
-                                        <input type="button" value="envoyer" class="btn btn-primary">
-                                    </div>
-                                </form>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Contenue</th>
+                                                <th>Date</th>
+                                                <th>Destinataire</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <repeat group="{{@rapports}}" value="{{@rp}}">
+                                                <tr>
+                                                    <td>{{@rp.descriptions}}</td>
+                                                    <td>{{@rp.date_creation}}</td>
+                                                    <td>{{@rp.Destinatair}}</td>
+                                                    <td>
+                                                        <button class="btn btn-success">Voir</button>
+                                                    </td>
+                                                </tr>
+                                            </repeat>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
@@ -145,25 +145,28 @@
             } );
         </script>
         <script>
+            // Récupération des éléments HTML
             const rapportLink = document.getElementById("rapport-link");
-            const rapportForm = document.getElementById("rapport-form");
-            rapportLink.addEventListener("click", function(event) {
-            event.preventDefault();
-            rapportForm.style.display = "block";
-            visualisationContent.style.display = "none";
-            rapportLink.classList.add("active");
-            visualisationLink.classList.remove("active");
-            });
-
             const visualisationLink = document.getElementById("visualisation-link");
+            const rapportForm = document.getElementById("rapport-form");
             const visualisationContent = document.getElementById("visualisation-content");
-            visualisationLink.addEventListener("click", function(event) {
-            event.preventDefault();
-            rapportForm.style.display = "none";
-            visualisationContent.style.display = "block";
-            visualisationLink.classList.add("active");
-            rapportLink.classList.remove("active");
-            });
+
+            // Fonction pour cacher le formulaire de rapport et afficher le contenu de visualisation
+            function showVisualisationContent() {
+                visualisationContent.style.display = "block";
+                rapportForm.style.display = "none";
+            }
+
+            // Fonction pour cacher le contenu de visualisation et afficher le formulaire de rapport
+            function showRapportForm() {
+                visualisationContent.style.display = "none";
+                rapportForm.style.display = "block";
+            }
+
+            // Ajout des gestionnaires d'événements de clic pour les boutons
+            rapportLink.addEventListener("click", showRapportForm);
+            visualisationLink.addEventListener("click", showVisualisationContent);
+
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src='js/scripts.js'></script>
