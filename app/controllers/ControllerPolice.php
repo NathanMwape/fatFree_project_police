@@ -1,5 +1,9 @@
 <?php
 
+// Création du fichier docx avec PHPWord
+require_once 'lib/vendor/autoload.php'; // Inclure l'autoloader de PHPWord
+
+
 class ControllerPolice extends BaseController {
 
     # Affiche le formulaire d'ajout d'un passager
@@ -334,15 +338,83 @@ class ControllerPolice extends BaseController {
 
             $contenues = $this->f3->get("POST.contenues");
             if ($contenues == "" || $contenues == null) {
-                echo Template::instance()->render("rapport_admin.html");
+                $this->f3->reroute("/rapport/admin");
             }else{
+                // $contenues = strip_tags($contenues);
+                // $date_creation = date("Y-m-d H:i:s");
+                // $rapport->descriptions = $contenues;
+                // $rapport->date_creation = $date_creation;
+                // $rapport->Destinatair= $this->f3->get("SESSION.login");
+                // $rapport->insert();
+
                 $contenues = strip_tags($contenues);
                 $date_creation = date("Y-m-d H:i:s");
                 $rapport->descriptions = $contenues;
                 $rapport->date_creation = $date_creation;
                 $rapport->Destinatair= $this->f3->get("SESSION.login");
-                $rapport->save();
-                echo Template::instance()->render("rapport_admin.html");
+
+                // Créer le fichier docx
+                $phpWord = new \PhpOffice\PhpWord\PhpWord();
+                $section = $phpWord->addSection();
+                $section->addText($contenues);
+
+                $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+                $objWriter = 'rapport_'.$rapport->Destinatair.'.docx';
+                $filePath = "fichiers/". $objWriter;
+                $phpWord->save($filePath);
+
+                // Enregistrer le chemin du fichier dans la base de données
+                $rapport->filename = $filePath;
+                $rapport->insert();
+                $this->f3->reroute("/rapport/admin");
+            }
+        }else{
+            echo Template::instance()->render("404.html");
+        }
+    }
+    public function addRapportS(){
+        new Session();
+        $login = $this->f3->get("SESSION.login");
+        $password = $this->f3->get("SESSION.password");
+
+        if(isset($login) && isset($password)){
+            $policier = new Policier($this->db);
+            $this->f3->set("police", $policier->all());
+
+            $rapport = new Rapports($this->db);
+            $this->f3->set("rapports", $rapport->selectRapportUser($login));
+
+            $contenues = $this->f3->get("POST.contenues");  
+            if ($contenues == "" || $contenues == null) {
+                $this->f3->reroute("/accueil/rapport");
+            }else{
+                // $contenues = strip_tags($contenues);
+                // $date_creation = date("Y-m-d H:i:s");
+                // $rapport->descriptions = $contenues;
+                // $rapport->date_creation = $date_creation;
+                // $rapport->Destinatair= $this->f3->get("SESSION.login");
+                // $rapport->insert();
+
+                $contenues = strip_tags($contenues);
+                $date_creation = date("Y-m-d H:i:s");
+                $rapport->descriptions = $contenues;
+                $rapport->date_creation = $date_creation;
+                $rapport->Destinatair= $this->f3->get("SESSION.login");
+
+                // Créer le fichier docx
+                $phpWord = new \PhpOffice\PhpWord\PhpWord();
+                $section = $phpWord->addSection();
+                $section->addText($contenues);
+
+                $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+                $objWriter = 'rapport_'.$rapport->Destinatair.'.docx';
+                $filePath = "fichiers/". $objWriter;
+                $phpWord->save($filePath);
+
+                // Enregistrer le chemin du fichier dans la base de données
+                $rapport->filename = $filePath;
+                $rapport->insert();
+                $this->f3->reroute("/accueil/rapport");
             }
         }else{
             echo Template::instance()->render("404.html");

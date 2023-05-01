@@ -115,20 +115,20 @@
                                     <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
                                                 <th>Contenue</th>
-                                                <th>Date</th>
-                                                <th>Destinataire</th>
+                                                <th>Nom du fichier</th>
+                                                <th>Date de creation</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php foreach (($rapports?:[]) as $rp): ?>
                                                 <tr>
-                                                    <td><?= ($rp['id_rapport']) ?></td>
-                                                    <td><?= ($rp['descriptions']) ?></td>
+                                                    <td><?= (substr($rp['descriptions'], 0,10)) ?>...</td>
+                                                    <td>
+                                                        <a href="<?= ("../../"  . $rp['filename']) ?>"><?= (substr($rp['filename'], 10)) ?></a>
+                                                    </td>
                                                     <td><?= ($rp['date_creation']) ?></td>
-                                                    <td><?= ($rp['Destinatair']) ?></td>
                                                     <td>
                                                         <button class="btn btn-success">Voir</button>
                                                     </td>

@@ -30,4 +30,9 @@ class Rapports extends DB\SQL\Mapper {
         $this->Destinatair = $destinataire;
         $this->save();
     }
+
+    public function selectRapportUser($login){
+        $resultat = $this->db->exec('SELECT * FROM rapports WHERE Destinatair = ?', $login);
+        return $resultat;
+    }
 }

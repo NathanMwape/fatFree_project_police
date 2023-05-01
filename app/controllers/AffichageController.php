@@ -46,12 +46,12 @@
             $login = $this->f3->get("SESSION.login");
             $password = $this->f3->get("SESSION.password");
             if(isset($login) && isset($password)){
-            $policier = new Policier($this->db);
-            $this->f3->set("police", $policier->all());
+              $policier = new Policier($this->db);
+              $this->f3->set("police", $policier->all());
 
-            $rapports = new Rapports($this->db);
-            $this->f3->set("rapports", $rapports->all());
-            echo Template::instance()->render("rapport.html");
+              $rapports = new Rapports($this->db);
+              $this->f3->set("rapports", $rapports->selectRapportUser($login));
+              echo Template::instance()->render("rapport.html");
             }else{
                 echo Template::instance()->render("404.html");
             }
