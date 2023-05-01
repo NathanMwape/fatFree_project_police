@@ -311,6 +311,9 @@ class ControllerPolice extends BaseController {
         {
             $policier = new Policier($this->db);
             $this->f3->set("police", $policier->all());
+            $rapport = new Rapports($this->db);
+            $this->f3->set("rapport", $rapport->all());
+
             echo Template::instance()->render("rapport_admin.html");
         }
         else 

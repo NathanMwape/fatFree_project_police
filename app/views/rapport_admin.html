@@ -116,27 +116,37 @@
                             </div>
                         </div>
                         <div id="visualisation-content" style="display: none;">
-                            <!-- contenu visualisation -->
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, vel, esse consequuntur, sequi voluptas veniam ea omnis magnam incidunt eos atque nemo aliquid autem fugiat. Dicta reprehenderit iste nihil possimus?
-                        </div>
-
-
-
-
-
-
-
-                        </div>
-                        <!-- <div class="card mb-4">
+                            <!-- contenu visualisation de contenue du rapport-->
                             <div class="card-body">
-                                <form action="POST" style="width: 90%; margin: 20PX;">
-                                    <textarea name="pc-textarea" id="pclu-textarea" cols="30" rows="12"></textarea>
-                                    <div style="margin: 20px;  text-align: center;">
-                                        <input type="button" value="envoyer" class="btn btn-primary">
-                                    </div>
-                                </form>
-                            </div>
-                        </div> -->
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>id</th>
+                                                <th>date</th>
+                                                <th>contenue</th>
+                                                <th>action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- <repeat group="{{ @rapport }}" value="{{ @rapport }}">
+                                                <tr>
+                                                    <td>{{ @rapport.id_rapport }}</td>
+                                                    <td>{{ @rapport.date_rapport }}</td>
+                                                    <td>{{ @rapport.descriptions }}</td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-primary">voir</a>
+                                                        <a href="#" class="btn btn-danger">supprimer</a>
+                                                    </td>
+                                                </tr>
+                                            </repeat> -->
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                        </div>
+
+                        </div>
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
