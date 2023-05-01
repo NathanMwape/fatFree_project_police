@@ -184,19 +184,6 @@
 
         </script>
 
-        <script>
-        // Récupération du formulaire
-            function showSaveDialog() {
-            if (confirm("Voulez-vous enregistrer le contenu sous format PDF ou DOCX?")) {
-                // Si l'utilisateur clique sur "OK" dans la boîte de dialogue, on redirige vers la page d'enregistrement PDF
-                window.location.href = "/rapport/enregistrer-pdf";
-            } else {
-                // Sinon, on redirige vers la page d'enregistrement DOCX
-                window.location.href = "/rapport/enregistrer-docx";
-            }
-            }
-        </script>
-
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src='js/scripts.js'></script>
         <script src='js/ajout_policier.js'></script>
