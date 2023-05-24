@@ -268,7 +268,6 @@
                                         <?php foreach (($policier?:[]) as $police): ?> 
                                         <tr>
                                             <td>
-                                                <!-- affichage de id du policier dans le bon ordre -->
                                                 <?= ($count)."
 " ?>
                                                 <?php $count=$count+1; ?>

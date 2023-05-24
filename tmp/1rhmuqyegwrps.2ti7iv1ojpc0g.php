@@ -96,10 +96,11 @@
 							    <canvas id="myChart" style="width:100%;max-width:400px"></canvas>
                             </div>
                             <div class="col-4">
-                                <!-- affichage chart Pie de statistiques des des armes et munition déjà attribuée-->
                                 <canvas id="myChartPie" style="width:100%;max-width:350px; height: 90px;"></canvas>
-
-
+                            </div>
+                            <!-- // linechar pour les munitions et les armes avec des lignes osciller-->
+                            <div class="col-4">
+                                <canvas id="myChartLine" style="width:100%;max-width:350px; height: 90px;"></canvas>
                             </div>
                         </div>
                     </div>
@@ -164,7 +165,31 @@
                     }
             });
 
-            
+            <!-- lineChar avec des lignes osciller -->
+            var xValues = ["Armes", "Munitions"];
+            var yValues = [<?= ($countArme) ?>,<?= ($countMunition) ?>];
+
+            new Chart("myChartLine", {
+                type: "line",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: "blue",
+                    borderColor: "blue",
+                    data: yValues
+                    }]
+                },
+                options: {
+                    legend: {display: false},
+                    title: {
+                    display: true,
+                    text: "Armes et Munitions"
+                    }
+                }
+            });
+
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
