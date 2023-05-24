@@ -34,7 +34,14 @@
                                     
                                 <?php endif; ?>
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+                                    <!-- image avec avec des coins arrondi -->
+                                    <div class="card-header">
+                                        
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">
+                                        <img src="image/pnc_drc.png" alt="" style="width: 250px; height: 200px; border-radius: 0%;">
+                                    </div>
+                                        <h3 class="text-center font-weight-light my-4">Login</h3>
+                                    </div>
                                     <div class="card-body">
                                         <form action="<?= ($BASE.'/admin/check') ?>" method="POST">
                                             <div class="form-floating mb-3">
@@ -47,7 +54,7 @@
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                                 <a class="small" >Forgot Password?</a>
-                                                <input class="btn btn-primary" type="submit" name="envoi">
+                                                <input class="btn btn-primary" type="submit" value="connecter" name="envoi">
                                             </div>
                                         </form>
                                     </div>
@@ -56,15 +63,6 @@
                         </div>
                     </div>
                 </main>
-            </div>
-            <div id="layoutAuthentication_footer">
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted align-items-center">Copyright &copy; 2023</div>
-                        </div>
-                    </div>
-                </footer>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

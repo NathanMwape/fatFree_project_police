@@ -127,17 +127,19 @@
                                             <td>{{ @p.nom }}</td>
                                             <td>{{ @p.post_nom }}</td>
                                             <td>{{ @p.prenom }}</td>
-                                            <check if="{{@p.armes}} !='' and {{@p.nb_munition}}">
+                                            <check if="{{@p.armes!=''}} and {{@p.nb_munition !=0}}">
+                                                <!--- lorsque l'arme où munition sont attribuer qu'on affiche une Icon ronde de tres bien  avec comme couleur verte en bootstrap sinon on affiche une icon en point d'interrogation avec comme couleur rouge-->
+                                                
                                                 <true>
-                                                    <td><i class="fas fa-check-circle text-success fa-2x" aria-hidden="true"></i></td>
+                                                    <td><i class="fa fa-check-circle fa-2x" aria-hidden="true" style="color: green;"></i></td>
                                                 </true>
                                                 <false>
-                                                    <td><i class="fas fa-cancel-circle text-danger fa-2x" aria-hidden="true"></i></td>
+                                                    <td><i class="fa fa-question-circle fa-2x" aria-hidden="true" style="color: rgb(240, 59, 59);"></i></td>
                                                 </false>
                                             </check>
-                                            
                                             <td>
                                                 <a href="{{ @BASE . '/attrib/maj/' . @p.id_policier}}"><input name="" id="" class="btn btn-primary" type="button" value="Attribution"></a>
+                                                <a href="{{ @BASE . '/desattribuer/' . @p.id_policier}}"><input name="" id="" class="btn btn-danger" type="button" value="Désaffecter"></a>
                                             </td>
                                         </tr>
                                     </repeat>

@@ -131,6 +131,8 @@
                                                     <td><?= ($rp['date_creation']) ?></td>
                                                     <td><?= ($rp['Destinatair']) ?></td>
                                                 </tr>
+
+                                                
                                             <?php endforeach; ?>
                                         </tbody>
                                     </table>

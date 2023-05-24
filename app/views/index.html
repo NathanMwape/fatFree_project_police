@@ -95,33 +95,11 @@
                             <div class="col-4">
 							    <canvas id="myChart" style="width:100%;max-width:400px"></canvas>
                             </div>
-                            <div class="col">
+                            <div class="col-4">
+                                <!-- affichage chart Pie de statistiques des des armes et munition déjà attribuée-->
+                                <canvas id="myChartPie" style="width:100%;max-width:350px; height: 90px;"></canvas>
 
-                                <select class="form-select form-select-sm" id="nom_commissariat" aria-label=".form-select-sm example">
-                                    <option selected disabled>Choisisez le Commissariat </option>
-                                    <repeat group="{{ @unite_appart}}" value="{{ @police }}">
-                                        <option value="{{ @police.unite_appartenance}}">{{ @police.unite_appartenance}}</option>	
-                                    </repeat>
-                                </select>
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                        <th scope="col">Nom</th>
-                                        <th scope="col">Post-Nom</th>
-                                        <th scope="col">Prenom</th>
-                                        </tr>
-                                    </thead>
-                                    
-                                    <tbody>
-                                        <repeat group="{{ @policier}}" value="{{ @police }}">
-                                            <tr id="tables">
-                                                <td>{{ @police.nom }}</td>
-                                                <td>{{ @police.post_nom }}</td>
-                                                <td>{{ @police.prenom }}</td>
-                                            </tr>
-                                        </repeat>
-                                    </tbody>
-                                    </table>
+
                             </div>
                         </div>
                     </div>
@@ -164,6 +142,28 @@
 						}
 					}
 			});
+
+            var xValues = ["Armes", "Munitions"];
+            var yValues = [{{@countArme}},{{@countMunition}}];
+            var barColors = ["blue", "red"];
+
+            new Chart("myChartPie", {
+                    type: "pie",
+                    data: {
+                        labels: xValues,
+                        datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+                        }]
+                    },
+                    options: {
+                        title: {
+                        display: true,
+                        text: "Armes et Munitions"
+                        }
+                    }
+            });
+
             
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>

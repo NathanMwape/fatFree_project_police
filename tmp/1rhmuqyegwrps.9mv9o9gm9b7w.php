@@ -114,7 +114,7 @@
                                                     <input type="date" name="date_naissance" class="form-control">
                                                 </div><br><br>
                                                 <div class="form-group col-md-12">
-                                                    <input type="text" name="adresse" class="form-control" placeholder="Adresse">
+                                                    <input type="text" name="adresse" class="form-control" placeholder="Adresse de residence">
                                                 </div><br><br>
                                                 <div class="form-group col-md-6">
                                                     <input type="text" name="matricule" class="form-control" placeholder="Matricule">
@@ -165,6 +165,10 @@
                                     </div>
                                     <div class="modal-body">
                                         <div style="font-family: sans-serif; font-size: 13px;" class="row">
+                                            <!-- cache le champs id -->
+                                            <div class="col-md-6">
+                                                <p>Id : <strong id="detId"></strong></p>
+                                            </div>
                                             <div class="col-md-6">
                                                 <p>Nom : <strong id="detNom"></strong></p> 
                                             </div>
@@ -178,13 +182,13 @@
                                                 <p>Sexe : <strong id="detSexe"></strong></p> 
                                             </div>
                                             <div class="col-md-6">
-                                                <p>date_naissance : <strong id="detDateNaissance"></strong></p> 
+                                                <p>date_naissance : <strong id="detDate_naissance"></strong></p> 
                                             </div>
                                             <div class="col-md-6">
                                                 <p>Age : <strong id="detAge"></strong></p> 
                                             </div>
                                             <div class="col-md-6">
-                                                <p>pays_origine : <strong id="detPaysOrigine"></strong></p> 
+                                                <p>pays_origine : <strong id="detPays_origine"></strong></p> 
                                             </div>
                                             <div class="col-md-6">
                                                 <p>lieu_naissance : <strong id="detLieuNaissance"></strong></p> 
@@ -196,7 +200,7 @@
                                                 <p>matricule : <strong id="detMatricule"></strong></p> 
                                             </div>
                                             <div class="col-md-6">
-                                                <p>Etat_civile : <strong id="detEtatCivil"></strong></p> 
+                                                <p>Etat_civile : <strong id="detEtat_civil"></strong></p> 
                                             </div>
                                             <div class="col-md-6">
                                                 <p>num_dossier : <strong id="detNum_dossier"></strong></p> 
@@ -205,14 +209,14 @@
                                                 <p>num_region : <strong id="detNum_region"></strong></p> 
                                             </div>
                                             <div class="col-md-6">
-                                                <p>unite_appartenace : <strong id="detUnite_app"></strong></p> 
+                                                <p>unite_appartenace : <strong id="detUnite_appartenance"></strong></p> 
                                             </div>
                                             <div class="col-md-12x">
                                                 <p>observation : <strong id="detOberservation"></strong></p> 
                                             </div><br><br>
                                             <hr>
                                             <div class="col-md-6">
-                                                <p>Arme : <strong id="detArme"></strong></p> 
+                                                <p>Arme : <strong id="detArmes"></strong></p> 
                                             </div>
                                             <div class="col-md-6">
                                                 <p>Nombre munition : <strong id="detNb_munition"></strong></p> 
@@ -238,6 +242,7 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
+                                            <th>Numero</th>
                                             <th>Nom</th>
                                             <th>Post-nom</th>
                                             <th>Prenom</th>
@@ -259,8 +264,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php $count='1'; ?>
                                         <?php foreach (($policier?:[]) as $police): ?> 
                                         <tr>
+                                            <td>
+                                                <!-- affichage de id du policier dans le bon ordre -->
+                                                <?= ($count)."
+" ?>
+                                                <?php $count=$count+1; ?>
+                                            </td>
                                             <td><?= ($police['nom']) ?></td>
                                             <td><?= ($police['post_nom']) ?></td>
                                             <td><?= ($police['prenom']) ?></td>
@@ -371,23 +383,24 @@
                     }).get();
 
                     console.log(data);
-                    document.getElementById("detNom").textContent = data[0];
-                    document.getElementById("detPostnom").textContent = data[1];
-                    document.getElementById("detPrenom").textContent = data[2];
-                    document.getElementById("detSexe").textContent = data[3];
-                    document.getElementById("detAge").textContent = data[5];
-                    document.getElementById("detDateNaissance").textContent = data[4];
-                    document.getElementById("detPaysOrigine").textContent = data[6];
-                    document.getElementById("detLieuNaissance").textContent = data[7];
-                    document.getElementById("detAdresse").textContent = data[8];
-                    document.getElementById("detMatricule").textContent = data[9];
-                    document.getElementById("detEtatCivil").textContent = data[10];
-                    document.getElementById("detNum_dossier").textContent = data[11];
-                    document.getElementById("detNum_region").textContent = data[12];
-                    document.getElementById("detUnite_app").textContent = data[13];
-                    document.getElementById("detOberservation").textContent = data[14];
-                    document.getElementById("detArme").textContent = data[15];
-                    document.getElementById("detNb_munition").textContent = data[16];
+                    document.getElementById("detId").textContent = data[0];
+                    document.getElementById("detNom").textContent = data[1];
+                    document.getElementById("detPostnom").textContent = data[2];
+                    document.getElementById("detPrenom").textContent = data[3];
+                    document.getElementById("detSexe").textContent = data[4];
+                    document.getElementById("detDate_naissance").textContent = data[5];
+                    document.getElementById("detAge").textContent = data[6];
+                    document.getElementById("detPays_origine").textContent = data[7];
+                    document.getElementById("detLieuNaissance").textContent = data[8];
+                    document.getElementById("detAdresse").textContent = data[9];
+                    document.getElementById("detMatricule").textContent = data[10];
+                    document.getElementById("detEtat_civil").textContent = data[11];
+                    document.getElementById("detNum_dossier").textContent = data[12];
+                    document.getElementById("detNum_region").textContent = data[13];
+                    document.getElementById("detUnite_appartenance").textContent = data[14];
+                    document.getElementById("detOberservation").textContent = data[15];
+                    document.getElementById("detArmes").textContent = data[16];
+                    document.getElementById("detNb_munition").textContent = data[17];
                     });
                 });
         </script>

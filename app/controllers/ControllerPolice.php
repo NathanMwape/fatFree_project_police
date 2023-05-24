@@ -214,6 +214,33 @@ class ControllerPolice extends BaseController {
         }
     }
 
+    // la methode pour desattribuer une arme et une munition a un policier donc reduire le nombre de munition et augmenter le nombre de munition disponible dans la table arme et munition
+
+    public function desattribuer() {
+        new Session();
+        $login = $this->f3->get("SESSION.login");
+        $password = $this->f3->get("SESSION.password");
+        # Si l'utilisateur est connecter on lui affiche sont 
+        # page sinon on lui dit de se connecter
+        if(isset($login) && isset($password)){
+            $arme = new Arme($this->db);
+            $this->f3->set("arme", $arme->all());
+            $policier = new Policier($this->db);
+            $policier->getById($this->f3->get("PARAMS.id"));
+            $this->f3->set("policier", $policier);
+
+            $armes = "";
+            $munitions = 0;
+
+            $policier->armes = $armes;
+            $policier->nb_munition = $munitions;
+            $policier->save();
+            $this->f3->reroute("/attribution");
+        }else{
+            echo Template::instance()->render("404.html");
+        }
+    }
+
 
     public function maj_attrib_proc() {
         new Session();

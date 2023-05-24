@@ -35,10 +35,7 @@
           }else{
             echo Template::instance()->render("404.html");
           }
-        
         }
-
-
 
         public function rapportComm()
         {
@@ -85,7 +82,5 @@
         }
 
 
-
-    
 
 }

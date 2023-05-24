@@ -134,7 +134,7 @@
                                                     <td><i class="fa fa-check-circle fa-2x" aria-hidden="true" style="color: green;"></i></td>
                                                 
                                                 <?php else: ?>
-                                                    <td><i class="fa fa-question-circle fa-2x" aria-hidden="true" style="color: rgb(240, 59, 59);"></i></td>
+                                                    <td><i class="fa fa-question-circle fa-2x" aria-hidden="true" style="color: red;"></i></td>
                                                 
                                             <?php endif; ?>
                                             <td>
