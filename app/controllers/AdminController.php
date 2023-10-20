@@ -10,7 +10,7 @@ class AdminController extends BaseController {
         {
             // Parcours tous les enregistrement dans la table admins
             $admin_m = new Admin($this->db); //Mapper
-            $admin_m->login = "SELECT prenom FROM users WHERE users.id_user=admin.id_user";
+            $admin_m->login = "SELECT nom_commissariat FROM users WHERE users.id_user=admin.id_user";
             $admin_m ->password = "SELECT passwords FROM users WHERE users.id_user=admin.id_user";
             $admin_m->all();
 
@@ -21,19 +21,23 @@ class AdminController extends BaseController {
             {
                 if(strcmp($login, $admin_m->login) == 0 && strcmp($password, $admin_m->password) == 0)
                 {
-                    
                     new Session();
                     $this->f3->set("SESSION.login", $login);
                     $this->f3->set("SESSION.password", $password);
                     $this->f3->reroute("/admin/accueil");
                     return;
-                }elseif (strcmp($login, $user->prenom) == 0 && strcmp($password, $user->passwords) == 0) {
+                }elseif (strcmp($login, $user->nom_commissariat) == 0 && strcmp($password, $user->passwords) == 0) {
 
                     if($user->role != "admin")
                     {
+                        $policier= new Policier($this->db);
+                        $policier->getPoliceByCommissariat($login);
                         new Session();
                         $this->f3->set("SESSION.login", $login);
                         $this->f3->set("SESSION.password", $password);
+                        $this->f3->set("SESSION.nom_commissariat", $user->nom_commissariat);
+
+                        $this->f3->set("policiersDuCommissariat", $user->nom_commissariat);  
                         $this->f3->reroute("/users/accueil");
                         return;
                     }else{
@@ -56,15 +60,9 @@ class AdminController extends BaseController {
     }
 
         public function deconnexion() {
-            // Démarrage de la session
             session_start();
-
-            // Destruction de toutes les données de la session
             session_unset();
-
-            // Destruction de la session
             session_destroy();
-            // Empêcher le retour en arrière avec la touche précédente du navigateur
             header("Cache-Control: no-cache, no-store, must-revalidate");
 
             // Redirection vers la page de connexion
@@ -79,7 +77,7 @@ class AdminController extends BaseController {
         if(isset($login) && isset($password)){
             $policier = new Policier($this->db);
             $this->f3->set("policier", $policier->all());
-            $this->f3->set("unite_appart", $policier->police_unite_appartenance());
+            // $this->f3->set("unite_appart", $policier->police_unite_appartenance());
             $countp = $policier->countPolicier();
             $this->f3->set('countPolicier', $countp);
 
@@ -115,8 +113,6 @@ class AdminController extends BaseController {
         new Session();
         $login = $this->f3->get("SESSION.login");
         $password = $this->f3->get("SESSION.password");
-        # Si l'utilisateur est connecter on lui affiche sont 
-        # page sinon on lui dit de se connecter
         if(isset($login) && isset($password))
         {
             /* Je peu soit utiliser trois variable pour les administrateurs,
@@ -138,11 +134,11 @@ class AdminController extends BaseController {
             $user = new User($this->db);
             $user->getById($id);
             switch($user->role) {
-                case 'Administrateur' :
+                case 'Admin' :
                     $sub_user = new Admin($this->db);
                     break;
-                // case 'Agent' :
-                //     $sub_user = new Agent($this->db);
+                // case 'Policier' :
+                //     $sub_user = new Policier($this->db);
                 //     break;
             }
             if(isset($sub_user)) {
@@ -174,7 +170,8 @@ class AdminController extends BaseController {
             
             $policier = new Policier($this->db);
             $this->f3->set("policier", $policier->all());
-            $this->f3->set("unite_appart", $policier->police_unite_appartenance());
+
+
             $countp = $policier->countPolicier();
             $this->f3->set('countPolicier', $countp);
 
@@ -183,6 +180,10 @@ class AdminController extends BaseController {
             $this->f3->set("countAttrib",$countAtt);
             $countNattr = $policier->countPolicierNoAttr();
             $this->f3->set("countNotAttr",$countNattr);
+
+            $policier->getPoliceByCommissariat($login);
+            $this->f3->set("policiersDuCommissariat", $policier->getPoliceByCommissariat($login));
+
             echo Template::instance()->render("s_commissariat.html");
         }
         else 

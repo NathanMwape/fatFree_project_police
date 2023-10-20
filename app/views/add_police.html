@@ -15,6 +15,27 @@
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-OMH/HCDnRd1gQ8mKjH0vDkkAow0dxblQ2AHc9WV0BxRs0AzQiYcz3g8GGbyM+HwD" crossorigin="anonymous">
 
+        <style>
+        /* Add custom styles here */
+        body {
+            background-color: #f8f9fa;
+        }
+        .card-header {
+            background-color: #343a40;
+            color: white;
+        }
+        table {
+            background-color: white;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 8px;
+        }
+        .modal-content {
+            background-color: #f8f9fa;
+        }
+        /* ... (other custom styles) ... */
+    </style>
 
     </head>
     <body class="sb-nav-fixed">
@@ -30,17 +51,13 @@
                                 ACCEUIL
                             </a>
                             <div class="sb-sidenav-menu-heading">ACTION</div>
-                            <a class="nav-link active" href="{{ @BASE . '/add_police'}}">
+                            <a class="nav-link active" href="{{ @BASE . '/policier/inspecteur'}}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                POLICE
+                                POLICIER
                             </a>
                             <a class="nav-link" href="{{ @BASE . '/stockage'}}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-store"></i></div>
                                 STOCKAGE
-                            </a>
-                            <a class="nav-link" href="{{ @BASE . '/attribution'}}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                ATTRIBUTION
                             </a>
                             <a class="nav-link" href="{{ @BASE . '/rapport/admin'}}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-air-freshener"></i></div>
@@ -60,98 +77,10 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Tables</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="{{ @BASE . '/accueil/'}}">Acceuil</a></li>
+                            <li class="breadcrumb-item"><a href="{{ @BASE . '/accueil_now/'}}">Acceuil</a></li>
                             <li class="breadcrumb-item active">Tables</li>
                         </ol>
                         <div class="card mb-4">
-                            <div class="card-body">
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    Ajouter Policier
-                                </button>
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Policier</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="/police/police_add" method="POST" onsubmit="return check();">
-
-                                            <div class="row">
-                                                <div class="form-group col-md-6">
-                                                    <input type="text" name="nom" id="nom" class="form-control" placeholder="Nom">
-                                                </div>
-
-                                                <div class="form-group col-md-6">
-                                                    <input type="text" name="post_nom" id="postnom" class="form-control" placeholder="Post-nom">
-                                                </div><br><br>
-
-                                                <div class="form-group col-md-6">
-                                                    <input type="text" name="prenom" id="prenom" class="form-control" placeholder="Prenom">
-                                                </div>
-                                                <div class="form-group col-md-3">
-                                                    <select name="sexe"  class="form-control">
-                                                        <option value="" selected disabled>sexe</option>
-                                                        <option value="M">M</option>
-                                                        <option value="F">F</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group col-md-3">
-                                                    <input type="number" id="age" name="age" class="form-control" placeholder="Age">
-                                                </div><br><br>
-                                                <div class="form-group col-md-12">
-                                                    <input type="text" name="pays_origine" class="form-control" placeholder="Pays d'origine">
-                                                </div><br><br>
-
-                                                <div class="form-group col-md-6">
-                                                    <input type="text" name="lieu_naissance" class="form-control" placeholder="Lieu de naissance">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <input type="date" name="date_naissance" class="form-control">
-                                                </div><br><br>
-                                                <div class="form-group col-md-12">
-                                                    <input type="text" name="adresse" class="form-control" placeholder="Adresse de residence">
-                                                </div><br><br>
-                                                <div class="form-group col-md-6">
-                                                    <input type="text" name="matricule" class="form-control" placeholder="Matricule">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <select name="etat_civil" id="" class="form-control">
-                                                        <option value="" selected disabled>Etat civil</option>
-                                                        <option value="celibataire">celibataire</option>
-                                                        <option value="Marie">Marie</option>
-                                                        <option value="Divorce">Divorce</option>
-                                                    </select>
-                                                </div><br><br>
-                                                <div class="form-group col-md-6">
-                                                    <input type="text" name="num_dossier" class="form-control" placeholder="Numero Dossier">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <input type="text" name="num_region" class="form-control" placeholder="Numero Region">
-                                                </div><br><br>
-                                                <div class="form-group col-md-12">
-                                                    <input type="text" name="unite_appartenance" class="form-control" placeholder="Unite d'appartenance">
-                                                </div><br><br>
-                                                <div class="form-group col-md-12">
-                                                    <textarea class="form-control" name="observation" id="" cols="" rows="3" placeholder="Observations"></textarea>
-                                                </div><br><br>
-
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">fermer</button>
-                                                <button type="submit"  class="btn btn-primary">Ajouter</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
-                                
-                            </div>
                         </div>
 
                             <!-- DEBUT DU POP DETAILS -->
@@ -166,7 +95,7 @@
                                     <div class="modal-body">
                                         <div style="font-family: sans-serif; font-size: 13px;" class="row">
                                             <!-- cache le champs id -->
-                                            <div class="col-md-6">
+                                            <div class="col-md-6" style="display: none;">
                                                 <p>Id : <strong id="detId"></strong></p>
                                             </div>
                                             <div class="col-md-6">
@@ -211,9 +140,13 @@
                                             <div class="col-md-6">
                                                 <p>unite_appartenace : <strong id="detUnite_appartenance"></strong></p> 
                                             </div>
-                                            <div class="col-md-12x">
+                                            <div class="col-md-12">
                                                 <p>observation : <strong id="detOberservation"></strong></p> 
-                                            </div><br><br>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>nom_commissariat : <strong id="detNom_commissariat"></strong></p>
+                                            </div>
+                                            <br><br>
                                             <hr>
                                             <div class="col-md-6">
                                                 <p>Arme : <strong id="detArmes"></strong></p> 
@@ -259,6 +192,7 @@
                                             <th>unite_appartenance</th>
                                             <th>observation</th>
                                             <th>arme</th>
+                                            <th>nom_commissariat</th>
                                             <th>nb_munition</th>
                                             <th>Action</th>
                                         </tr>
@@ -286,12 +220,11 @@
                                             <td>{{@police.num_region}}</td>
                                             <td>{{@police.unite_appartenance}}</td>
                                             <td>{{@police.observation}}</td>
+                                            <td>{{@police.nom_commissariat}}</td>
                                             <td>{{@police.armes}}</td>
                                             <td>{{@police.nb_munition}}</td>
                                             
                                             <td>
-                                                <a href="{{ @BASE . '/police/maj/' . @police.id_policier}}"><input name="" id="" class="btn btn-primary" type="button" value="Modifier"></a>
-                                                <a href="{{ @BASE . '/police/supprimer/' . @police.id_policier }}"><input name="" id="" class="btn btn-danger deletebtn" type="button" value="Supprimer"></a>
                                                 <input name="" id="detail" class="detail btn btn-success viewbtn" type="button" value="Detail">
                                                 <a href="{{ @BASE . '/police/imprimer/' . @police.id_policier}}"><input name="" id="" class="btn btn-warning" type="button" value="Imprimer"></a>
                                             </td>
@@ -363,6 +296,7 @@
                     $('#EdNum_region').val(data[12]);
                     $('#EdUnite_appart').val(data[13]);
                     $('#EdObservation').val(data[14]);
+                    $('#EdAnomrmes').val(data[15]);
 
 
                     });
@@ -381,7 +315,7 @@
                     }).get();
 
                     console.log(data);
-                    document.getElementById("detId").textContent = data[0];
+                    // document.getElementById("detId").textContent = data[0];
                     document.getElementById("detNom").textContent = data[1];
                     document.getElementById("detPostnom").textContent = data[2];
                     document.getElementById("detPrenom").textContent = data[3];
@@ -397,8 +331,9 @@
                     document.getElementById("detNum_region").textContent = data[13];
                     document.getElementById("detUnite_appartenance").textContent = data[14];
                     document.getElementById("detOberservation").textContent = data[15];
-                    document.getElementById("detArmes").textContent = data[16];
-                    document.getElementById("detNb_munition").textContent = data[17];
+                    document.getElementById("detNom_commissariat").textContent = data[16];
+                    document.getElementById("detNb_munition").textContent = data[18];
+                    document.getElementById("detArmes").textContent = data[17];
                     });
                 });
         </script>

@@ -58,4 +58,42 @@
   #datatablesSimple td:nth-child(18) {
     display: none;
   }
+  #datatablesSimple th:nth-child(19),
+  #datatablesSimple td:nth-child(19) {
+    display: none;
+  }
 } 
+
+
+/* Styles spécifiques à cette page */
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .sb-sidenav {
+            background-color: #343a40;
+        }
+
+        .sb-sidenav-menu-heading {
+            color: #ffffff;
+        }
+
+        .sb-nav-link {
+            color: #ffffff;
+        }
+
+        .sb-sidenav-footer {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .table {
+            background-color: #ffffff;
+        }

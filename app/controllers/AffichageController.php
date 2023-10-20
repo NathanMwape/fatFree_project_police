@@ -8,7 +8,6 @@
             if(isset($login) && isset($password)){
             $policier = new Policier($this->db);
             $this->f3->set("policier", $policier->all());
-            $this->f3->set("unite_appart", $policier->police_unite_appartenance());
             $countp = $policier->countPolicier();
             $this->f3->set('countPolicier', $countp);
 
@@ -59,13 +58,13 @@
             new Session();
             $login = $this->f3->get("SESSION.login");
             $password = $this->f3->get("SESSION.password");
-            # Si l'utilisateur est connecter on lui affiche sont 
+            # Si l'utilisateur est connecter on lui affiche sa
             # page sinon on lui dit de se connecter
             if(isset($login) && isset($password))
             {
               $policier = new Policier($this->db);
               $this->f3->set("policier", $policier->all());
-              $this->f3->set("unite_appart", $policier->police_unite_appartenance());
+              $this->f3->set("policiersDuCommissariat", $policier->getPoliceByCommissariat($this->f3->get("SESSION.login")));
               $countp = $policier->countPolicier();
               $this->f3->set('countPolicier', $countp);
 
